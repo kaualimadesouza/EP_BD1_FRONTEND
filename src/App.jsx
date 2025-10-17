@@ -1,10 +1,13 @@
+import Home from "./pages/Home.jsx";
+import Admin from "./pages/Admin.jsx";
+import { Routes, Route } from "react-router-dom";
+
 function App() {
   return (
-    <>
-      <body>
-        <h1 className="text-4xl font-bold align-middle">Goalytics</h1>
-      </body>
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/admin" element={<Admin />} />
+    </Routes>
   )
 }
 
