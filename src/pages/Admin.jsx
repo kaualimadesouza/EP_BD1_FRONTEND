@@ -1,14 +1,17 @@
-import { act, useEffect, useState } from "react";
+/**
+ * Componente Admin.
+ *
+ * Essa é a tela que da acesso a manutenção de todas as entidades no banco de dados
+ * através de uma API REST. Ele permite realizar operações CRUD (Criar, Ler, Atualizar, Deletar)
+ */
+import { useEffect, useState } from "react";
 import { Database, Tag } from "lucide-react";
 import axios from "axios";
-
-// 1. IMPORTE A DATAGRID E OS ITENS DO TEMA
 import { DataGrid } from '@mui/x-data-grid';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from "@mui/material";
 
-// 2. CRIE UM TEMA ESCURO PARA A MUI
-// Isso fará a tabela combinar com o seu layout escuro
+
 const darkTheme = createTheme({
     palette: {
         mode: 'dark',
@@ -22,18 +25,19 @@ function Admin() {
     const [showTableData, setShowTableData] = useState(false);
     const [deleteId, setDeleteId] = useState("");
     const [message, setMessage] = useState("");
-    const [messageType, setMessageType] = useState(""); // 'success' ou 'error'
+    const [messageType, setMessageType] = useState("");
     const [insertSuccess, setInsertSuccess] = useState(false);
-    // Estados para os dados da tabela em caso de Select
-    const [rows, setRows] = useState([]);
-    const [columns, setColumns] = useState([]);
+
+    const [rows, setRows] = useState([]); // Linhas da tabela
+    const [columns, setColumns] = useState([]); // Colunas da tabela
     const [tableColumns, setTableColumns] = useState([]);
     const [tableColumnsInsertValue, setTableColumnsInsertValue] = useState([]);
-    // Estado para o ID do update
+
     const [updateId, setUpdateId] = useState("");
     const [originalDataUpdate, setOriginalDataUpdate] = useState(null);
     const [updateFieldsVisible, setUpdateFieldsVisible] = useState(false);
-    // Função para buscar dados do registro a ser atualizado
+
+    // Lida com a seleção de uma linha para atualização.
     async function handleChooseRow(e) {
         e.preventDefault();
         setMessage("");
@@ -48,9 +52,11 @@ function Admin() {
             return;
         }
         try {
+            // Faz a requisição para obter os dados do registro pelo ID.
             const res = await axios.get(`http://localhost:8080/${table}/${updateId}`);
             setOriginalDataUpdate(res.data);
-            // Preenche os campos editáveis com os valores atuais
+            
+            // Preenche os campos editáveis com os valores atuais do registro.
             setTableColumnsInsertValue(
                 tableColumns.filter(col => col !== "id").map(col => ({
                     name: col,
@@ -71,7 +77,7 @@ function Admin() {
         }
     }
 
-    // Função para atualizar um registro
+    // Lida com a atualização de um registro existente.
     function updateRow(e) {
         e.preventDefault();
         if (!updateId) {
@@ -83,7 +89,7 @@ function Admin() {
             }, 6000);
             return;
         }
-        // Começa com os dados originais
+        // Começa com os dados originais e sobrescreve com os valores do formulário.
         const rowData = { ...originalDataUpdate };
         tableColumnsInsertValue.forEach((col) => {
             const camelKey = toCamelCase(col.name);
@@ -95,6 +101,7 @@ function Admin() {
                 rowData[camelKey] = col.value;
             }
         });
+        // Confirmação antes de enviar a requisição.
         if (window.confirm("Deseja realmente atualizar este registro?")) {
             axios.put(`http://localhost:8080/${table}/${updateId}`, rowData)
                 .then((response) => {
@@ -104,6 +111,9 @@ function Admin() {
                         setMessage("");
                         setMessageType("");
                     }, 4000);
+
+
+                    // Reseta os estados após o sucesso.
                     setUpdateId("");
                     setTableColumnsInsertValue([]);
                     setUpdateFieldsVisible(false);
@@ -120,6 +130,7 @@ function Admin() {
         }
     }
 
+    // Lida com a exclusão de um registro.
     function handleDelete(e) {
         e.preventDefault();
         setMessage("");
@@ -152,13 +163,13 @@ function Admin() {
             });
     }
 
+    // Busca a lista de tabelas disponíveis na API e atualiza o estado `tables`.
     function fetchTables() {
         axios.get("http://localhost:8080/admin/tables")
             .then((response) => setTables(response.data))
             .catch((error) => console.error("Error fetching tables:", error));
     }
 
-    // Função para formatar os dados para a DataGrid
     function formatDataForGrid(data) {
         if (!data || data.length === 0) {
             setColumns([]);
@@ -166,6 +177,7 @@ function Admin() {
             return;
         }
 
+        // Extrai as chaves do primeiro item para definir as colunas.
         const firstItemKeys = Object.keys(data[0]);
         const gridColumns = firstItemKeys.map((key) => ({
             field: key,
@@ -176,13 +188,12 @@ function Admin() {
         
         const gridRows = data.map((row, index) => ({
             ...row,
-            id: row.id !== undefined ? row.id : index, // Garante um ID único
+            id: row.id !== undefined ? row.id : index,
         }));
 
         setColumns(gridColumns);
         setRows(gridRows);
     }
-
 
     function showTable() {
         if (showTableData) {
@@ -196,22 +207,23 @@ function Admin() {
             axios.get(`http://localhost:8080/${table}`)
                 .then((response) => {
                     console.log("Dados da tabela:", response.data);
-                    // 3. Formate os dados recebidos
                     formatDataForGrid(response.data);
                 })
                 .catch((error) => {
                     console.error("Error fetching table data:", error);
-                    formatDataForGrid([]); // Limpa em caso de erro
+                    formatDataForGrid([]);
                 });
         }
     }
 
+    // Buscar a lista de tabelas disponíveis quando o componente é montado.
     useEffect(() => {
         fetchTables();
     }, []);
 
+    // Busca os nomes das colunas da tabela selecionada na API e atualiza o estado `tableColumns`.
     function fetchTableColumns() {
-        if (!table) return;
+        if (!table) return; // Não faz nada se nenhuma tabela estiver selecionada.
         axios.get(`http://localhost:8080/${table}/columns`)
             .then((response) => {
                 setTableColumns(response.data);
@@ -221,11 +233,11 @@ function Admin() {
             });
     }
 
-    // Atualiza o valor do input correspondente à coluna
+    // Lida com a mudança de valor em um campo de input do formulário.
     function handleInputChange(e, columnName) {
         const value = e.target.value;
         setTableColumnsInsertValue((prev) => {
-            // Se já existe, atualiza; se não, adiciona
+            // Se a coluna já existe no estado, atualiza seu valor; caso contrário, adiciona.
             const found = prev.find((col) => col.name === columnName);
             if (found) {
                 return prev.map((col) =>
@@ -237,9 +249,8 @@ function Admin() {
         });
     }
 
-    const [jsonPreview, setJsonPreview] = useState(null);
 
-    // Função para converter snake_case ou outros formatos para camelCase
+    // Converte uma string de snake_case para camelCase (No banco esta em snake_case (data_base) e no programa em java está em camelCase (dataBase)).
     function toCamelCase(str) {
         return str.replace(/_([a-z])/g, (g) => g[1].toUpperCase())
                   .replace(/^([A-Z])/, (g) => g.toLowerCase())
@@ -247,6 +258,7 @@ function Admin() {
                   .replace(/(^|_)([a-z])/g, (match, p1, p2, offset) => offset === 0 ? p2.toLowerCase() : p2.toUpperCase());
     }
 
+    // Lida com a inserção de um novo registro na tabela.
     function insertRow(e) {
         e.preventDefault();
         const rowData = {};
@@ -261,16 +273,13 @@ function Admin() {
             }
         });
 
-        setJsonPreview(rowData); // Mostra o JSON na tela
 
-        // Só envia para o backend após confirmação do usuário
         if (window.confirm("Deseja realmente inserir este registro? Veja o JSON na tela.")) {
             axios.post(`http://localhost:8080/${table}`, rowData)
                 .then((response) => {
-                    setInsertSuccess(true);
-                    setTimeout(() => setInsertSuccess(false), 4000);
-                    setTableColumnsInsertValue([]);
-                    setJsonPreview(null);
+                    setInsertSuccess(true); // Ativa o popup de sucesso.
+                    setTimeout(() => setInsertSuccess(false), 4000); // Esconde o popup após 4 segundos.
+                    setTableColumnsInsertValue([]); // Limpa os campos do formulário.
                 })
                 .catch((error) => {
                     console.error("Error inserting row:", error);
@@ -284,7 +293,6 @@ function Admin() {
         }
     }
 
-    // Sempre que trocar de ação, reseta os estados relevantes
     useEffect(() => {
         setUpdateId("");
         setUpdateFieldsVisible(false);
@@ -299,11 +307,9 @@ function Admin() {
     }, [action, table]);
 
     return (
-        // 4. APLIQUE O TEMA DA MUI NO SEU COMPONENTE
         <ThemeProvider theme={darkTheme}>
-            <CssBaseline /> {/* Reseta o CSS para o tema dark funcionar bem */}
+            <CssBaseline />
             <div className="flex flex-col lg:flex-row bg-black min-h-screen w-full">
-                {/* --- SUA SIDEBAR (SEM MUDANÇAS) --- */}
                 <div className="bg-zinc-800 min-h-[320px] lg:h-screen lg:border-r-[0.2px] border-zinc-700 border-opacity-40 lg:justify-center lg:items-center py-10 lg:py-0 flex flex-col w-full max-w-full lg:max-w-[600px] flex-shrink-0 min-w-0 gap-4">
                     <h1 className="font-semibold text-white px-4 text-2xl text-center">
                         Goalytics<br />Administrador page
@@ -326,13 +332,14 @@ function Admin() {
                     </div>
 
                     <div className="space-y-4 w-full px-4 sm:px-8">
+                        {/* Opção "Insert" */}
                         <div>
                             <input 
                                 type="radio" 
                                 id="insert" 
                                 name="plan" 
                                 className="hidden peer" 
-                                defaultChecked 
+                                defaultChecked
                                 onClick={() => fetchTableColumns()}
                                 onChange={() => setAction("insert")}
                             />
@@ -346,6 +353,7 @@ function Admin() {
                             </label>
                         </div>
 
+                        {/* Opção "Update" */}
                         <div>
                             <input type="radio" id="update" name="plan" className="hidden peer" onChange={() => setAction("update")}/>
                             <label 
@@ -358,6 +366,7 @@ function Admin() {
                             </label>
                         </div>
 
+                        {/* Opção "Delete" */}
                         <div>
                             <input type="radio" id="delete" name="plan" className="hidden peer" onChange={() => setAction("delete")}/>
                             <label 
@@ -370,6 +379,7 @@ function Admin() {
                             </label>
                         </div>
 
+                        {/* Opção "Select" */}
                         <div>
                             <input type="radio" id="Select" name="plan" className="hidden peer" onChange={() => setAction("select")}/>
                             <label 
@@ -386,11 +396,11 @@ function Admin() {
                 </div>
 
 
+                {/* Interface de "Select"*/}
                 {(action === "select" && table) && (
                     <div className="w-full p-2 sm:p-4 md:p-8 lg:p-12 overflow-x-auto">
                         <div className="bg-zinc-800 w-full rounded-2xl overflow-x-auto flex flex-col p-2 sm:p-6 md:p-10 lg:p-12">
                             <span className="text-white font-semibold text-2xl sm:text-3xl md:text-4xl capitalize">{action} in Table {table}</span>
-                            {/* 5. Wrapper para o botão e a tabela */}
                             <div className="relative w-full mt-4 sm:mt-8 overflow-x-auto flex-1 flex flex-col"> 
                                 <button onClick={showTable} className="bg-blue-500 text-white py-2 px-4 rounded cursor-pointer hover:bg-blue-600 mb-4 self-start">
                                     {showTableData ? "Hide Query" : "Execute Query"}
@@ -417,6 +427,7 @@ function Admin() {
                     </div>
                 )}
 
+                {/* Interface de "Delete"*/}
                 {action === "delete" && table && (
                     <div className="w-full p-2 sm:p-4 md:p-8 lg:p-12 overflow-x-auto">
                         <div className="bg-zinc-800 w-full rounded-2xl overflow-x-auto flex flex-col p-2 sm:p-6 md:p-10 lg:p-12">
@@ -445,9 +456,9 @@ function Admin() {
                     </div>
                 )}
 
+                {/* Interface de "Insert"*/}
                 {action === "insert" && table && tableColumns.length > 0 && (
                     <div className="w-full p-2 sm:p-4 md:p-8 lg:p-12 overflow-x-auto">
-                        {/* Popup de sucesso */}
                         {insertSuccess && (
                             <div className="fixed top-8 right-8 z-50 bg-green-600 text-white px-6 py-4 rounded-lg shadow-lg font-bold text-lg animate-fade-in-out">
                                 Linha inserida com sucesso!
@@ -461,7 +472,6 @@ function Admin() {
                                     const isNumberField = /capacidade/i.test(column);
                                     let inputValue = valueObj ? valueObj.value : "";
                                     if (isDateField && inputValue) {
-                                        // Se vier em formato ISO, corta só a data
                                         if (inputValue.includes("T")) {
                                             inputValue = inputValue.split("T")[0];
                                         }
@@ -485,7 +495,6 @@ function Admin() {
                                 <button type="submit" className="cursor-pointer bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-all mt-2 w-full">
                                     Insert
                                 </button>
-                                {/* Exibe os valores digitados de forma legível */}
                                 <div className="w-full mt-8 bg-zinc-900 rounded-lg p-4">
                                     <span className="text-purple-300 font-bold">Valores digitados:</span>
                                     <ul className="mt-2 text-white">
@@ -502,6 +511,7 @@ function Admin() {
                     </div>
                 )}
 
+                {/* Interface de "Update"*/}
                 {action === "update" && table && tableColumns.length > 0 && (
                     <div className="w-full p-2 sm:p-4 md:p-8 lg:p-12 overflow-x-auto">
                         {message && (
@@ -509,7 +519,6 @@ function Admin() {
                                 {message}
                             </div>
                         )}
-                        {/* Passo 1: pedir ID e botão Escolher Linha */}
                         <form onSubmit={handleChooseRow}>
                             <div className="flex flex-wrap gap-2 sm:gap-4 p-4 sm:p-8 items-end">
                                 <div className="mb-4 min-w-[180px] sm:min-w-[220px] flex-1 flex flex-col sm:flex-row gap-2 sm:gap-4">
@@ -531,7 +540,6 @@ function Admin() {
                                 </div>
                             </div>
                         </form>
-                        {/* Passo 2: se linha escolhida, mostra campos preenchidos */}
                         {updateFieldsVisible && (
                             <form onSubmit={updateRow}>
                                 <div className="flex flex-wrap gap-2 sm:gap-4 p-4 sm:p-8">
@@ -564,7 +572,6 @@ function Admin() {
                                     <button type="submit" className="cursor-pointer bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-600 transition-all mt-2 w-full">
                                         Update
                                     </button>
-                                    {/* Exibe os valores digitados de forma legível */}
                                     <div className="w-full mt-8 bg-zinc-900 rounded-lg p-4">
                                         <span className="text-purple-300 font-bold">Valores digitados:</span>
                                         <ul className="mt-2 text-white">
