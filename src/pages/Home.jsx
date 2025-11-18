@@ -12,7 +12,7 @@ import TabelaHome from "../components/TabelaHome/TabelaHome.jsx";
 
 function Home() {
   return (
-    <div className="bg-black h-screen space-y-6">
+    <div className="bg-black min-h-screen space-y-6">
       <Header />
       {/* Seção principal do conteúdo, com layout flexível e espaçamento horizontal. */}
       <main className="flex gap-5 px-70">
