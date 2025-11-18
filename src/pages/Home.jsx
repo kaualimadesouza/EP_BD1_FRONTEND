@@ -7,6 +7,8 @@
 import Header from "../components/Header/Header.jsx";
 import UltimosJogos from "../components/UltimosJogos/UltimosJogos.jsx";
 import JogosPrincipaisCampeonatosHome from "../components/JogosPrincipaisCampeonatosHome/JogosPrincipaisCampeonatosHome.jsx";
+import TabelaHome from "../components/TabelaHome/TabelaHome.jsx";
+
 
 function Home() {
   return (
@@ -16,6 +18,7 @@ function Home() {
       <main className="flex gap-5 px-70">
         <JogosPrincipaisCampeonatosHome />
         <UltimosJogos />
+        <TabelaHome />
       </main>
     </div>
   )

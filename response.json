@@ -1,0 +1,59 @@
+{
+    [
+        {
+            "iconcampeonato": "url",
+            "regiao": "Brasil",
+            "nomecampeonato": "Campeonato Brasileiro",
+            "ultimosJogos": [
+                "Jogo1": [
+                    "time1": "Palmeiras",
+                    "iconTime1": "url",
+                    "time2": "Corinthians",
+                    "iconTime2": "url",
+                    "golsTime1": 2,
+                    "golsTime2": 1,
+                    "dataJogo": "2024-06-15",
+                    "horaJogo": "20:00"
+                ],
+                {
+                    "time1": "Palmeiras",
+                    "iconTime1": "url",
+                    "time2": "Corinthians",
+                    "iconTime2": "url",
+                    "golsTime1": 2,
+                    "golsTime2": 1,
+                    "dataJogo": "2024-06-15",
+                    "horaJogo": "20:00"
+                },
+                ]
+            ]
+        },
+        {
+            "iconcampeonato": "url",
+            "pais": "Inglaterra",
+            "nomecampeonato": "Premier League",
+            "ultimosJogos": [
+                {
+                    "time1": "Manchester United",
+                    "iconTime1": "url",
+                    "time2": "Chelsea",
+                    "iconTime2": "url",
+                    "golsTime1": 3,
+                    "golsTime2": 2,
+                    "dataJogo": "2024-06-14",
+                    "horaJogo": "18:30"
+                },
+                {
+                    "time1": "Manchester United",
+                    "iconTime1": "url",
+                    "time2": "Chelsea",
+                    "iconTime2": "url",
+                    "golsTime1": 3,
+                    "golsTime2": 2,
+                    "dataJogo": "2024-06-14",
+                    "horaJogo": "18:30"
+                },
+            ]
+        }
+    ]
+}
