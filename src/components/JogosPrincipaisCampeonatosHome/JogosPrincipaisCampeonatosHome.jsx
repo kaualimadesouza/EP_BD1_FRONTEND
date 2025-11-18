@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import flagBrasil from "../../assets/flag_brasil.png";
-import iconPalmeiras from "../../assets/palmeiras_icon.png";
-import iconFlamengo from "../../assets/flamengo_icon.png";
 
 
 function JogosPrincipaisCampeonatosHome() {
@@ -23,7 +21,7 @@ function JogosPrincipaisCampeonatosHome() {
 
   return (
   <div className="text-white py-6 px-5 rounded-2xl bg-zinc-900 text-sm">
-  <div className="space-y-3 w-full max-w-2xl mx-auto">
+  <div className="space-y-3 w-full min-w-[500px]">
         {loading ? (
           <div>Carregando...</div>
         ) : (

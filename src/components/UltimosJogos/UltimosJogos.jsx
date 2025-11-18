@@ -24,11 +24,11 @@ function UltimosJogos() {
             ...jogo,
             // Atribui o primeiro time encontrado ou um placeholder.
             time1: times[0]
-              ? { nome: times[0].nomePopular, placar: times[0].placar, sigla: times[0].sigla }
+              ? { nome: times[0].nomePopular, placar: times[0].placar, sigla: times[0].sigla, urlEscudoEquipe: times[0].urlEscudoEquipe }
               : { nome: "Time 1", placar: "-", sigla: "T1" },
             // Atribui o segundo time encontrado ou um placeholder.
             time2: times[1]
-              ? { nome: times[1].nomePopular, placar: times[1].placar, sigla: times[1].sigla }
+              ? { nome: times[1].nomePopular, placar: times[1].placar, sigla: times[1].sigla, urlEscudoEquipe: times[1].urlEscudoEquipe }
               : { nome: "Time 2", placar: "-", sigla: "T2" },
           };
         })
@@ -84,7 +84,7 @@ function UltimosJogos() {
   
   
   return (
-        <div className="flex-1">
+        <div className="min-w-xl">
           {/* Card que exibe os detalhes do jogo atual. */}
           <div className="bg-zinc-900 text-white rounded-2xl shadow-lg p-10">
             <div className="mb-4 text-gray-400 text-sm text-center">
@@ -94,7 +94,7 @@ function UltimosJogos() {
             {/* Seção que exibe os detalhes dos times e informações centrais do jogo. */}
             <div className="flex justify-between items-center mb-6">
               <div className="flex flex-col items-center text-center w-1/3">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg" alt={jogoAtual.time1.nome} className="w-12 h-12 mb-2 rounded-xl" />
+                <img src={jogoAtual.time1.urlEscudoEquipe} alt={jogoAtual.time1.nome} className="w-12 h-12 mb-2 rounded-xl" />
                 <span className="text-sm font-bold">{jogoAtual.time1.nome}</span>
                 <span className="text-lg">{jogoAtual.time1.placar}</span>
                 <span className="text-xs text-gray-400">{jogoAtual.time1.sigla}</span>
@@ -107,7 +107,7 @@ function UltimosJogos() {
                 <span className="text-xs text-gray-400 mt-2">{jogoAtual.nomeOficialEstadio}</span>
               </div>
               <div className="flex flex-col items-center text-center w-1/3">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_France_%28lighter%29.png" alt={jogoAtual.time2.nome} className="w-12 h-12 mb-2 rounded-xl" />
+                <img src={jogoAtual.time2.urlEscudoEquipe} alt={jogoAtual.time2.nome} className="w-12 h-12 mb-2 rounded-xl" />
                 <span className="text-sm font-bold">{jogoAtual.time2.nome}</span>
                 <span className="text-lg">{jogoAtual.time2.placar}</span>
                 <span className="text-xs text-gray-400">{jogoAtual.time2.sigla}</span>

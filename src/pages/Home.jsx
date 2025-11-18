@@ -18,7 +18,6 @@ function Home() {
       <main className="flex gap-5 px-70">
         <JogosPrincipaisCampeonatosHome />
         <UltimosJogos />
-        <TabelaHome />
       </main>
     </div>
   )
