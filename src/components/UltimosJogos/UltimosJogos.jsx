@@ -84,38 +84,38 @@ function UltimosJogos() {
   
   
   return (
-        <div className="min-w-xl">
+        <div className="w-full">
           {/* Card que exibe os detalhes do jogo atual. */}
-          <div className="bg-zinc-900 text-white rounded-2xl shadow-lg p-10">
-            <div className="mb-4 text-gray-400 text-sm text-center">
+          <div className="bg-zinc-900 text-white rounded-2xl p-7 text-sm border border-zinc-800 shadow-2xl">
+            <div className="mb-3 text-gray-400 text-sm text-center">
                 {jogoAtual.nomeCampeonato}
             </div>
 
             {/* Seção que exibe os detalhes dos times e informações centrais do jogo. */}
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-5">
               <div className="flex flex-col items-center text-center w-1/3">
-                <img src={jogoAtual.time1.urlEscudoEquipe} alt={jogoAtual.time1.nome} className="w-12 h-12 mb-2 rounded-xl" />
-                <span className="text-sm font-bold">{jogoAtual.time1.nome}</span>
+                <img src={jogoAtual.time1.urlEscudoEquipe} alt={jogoAtual.time1.nome} className="w-10 h-10 mb-2 rounded-xl" />
+                <span className="text-xs font-bold">{jogoAtual.time1.nome}</span>
                 <span className="text-lg">{jogoAtual.time1.placar}</span>
                 <span className="text-xs text-gray-400">{jogoAtual.time1.sigla}</span>
               </div>
               {/* Informações centrais do jogo (horário, data, status, estádio). */}
               <div className="flex flex-col items-center">
-                <span className="text-xl font-bold">{horarioFormatado}</span>
+                <span className="text-lg font-bold">{horarioFormatado}</span>
                 <span className="text-xs text-gray-400">{dataFormatada}</span>
                 <span className="text-xs text-gray-400">{jogoAtual.status}</span>
                 <span className="text-xs text-gray-400 mt-2">{jogoAtual.nomeOficialEstadio}</span>
               </div>
               <div className="flex flex-col items-center text-center w-1/3">
-                <img src={jogoAtual.time2.urlEscudoEquipe} alt={jogoAtual.time2.nome} className="w-12 h-12 mb-2 rounded-xl" />
-                <span className="text-sm font-bold">{jogoAtual.time2.nome}</span>
+                <img src={jogoAtual.time2.urlEscudoEquipe} alt={jogoAtual.time2.nome} className="w-10 h-10 mb-2 rounded-xl" />
+                <span className="text-xs font-bold">{jogoAtual.time2.nome}</span>
                 <span className="text-lg">{jogoAtual.time2.placar}</span>
                 <span className="text-xs text-gray-400">{jogoAtual.time2.sigla}</span>
               </div>
             </div>
 
             {/* Seção que exibe o vencedor do campeonato. (Caso houver)*/}
-            <div className="mb-6">
+            <div className="mb-5">
               <h3 className="text-lg font-semibold text-center">Vencedor do Campeonato</h3>
               <div className="flex justify-center mt-2">
                 <button className="flex-1 bg-purple-600 border border-purple-500 rounded-full py-2 flex items-center justify-center cursor-default">
@@ -125,9 +125,9 @@ function UltimosJogos() {
             </div>
 
             {/* Controles de navegação entre os jogos (Anterior, Próximo e indicadores de página). */}
-            <div className="flex justify-between items-center text-gray-400 text-sm mt-6">
+            <div className="flex justify-between items-center text-gray-400 text-sm mt-5">
               <span className="cursor-pointer" onClick={handleAnterior}>{'<'} Anterior</span>
-              <div className="flex space-x-1">
+              <div className="flex space-x-2">
                 {ultimosJogos.map((_, index) => (
                   <span
                     key={index}

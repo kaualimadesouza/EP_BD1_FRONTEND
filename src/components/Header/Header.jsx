@@ -7,7 +7,7 @@ import { Search, Calendar, User, Settings } from 'lucide-react'; // Importa íco
 function Header() {
     return (
         // Contêiner principal do cabeçalho, com layout flexível, espaçamento e cores de fundo/texto.
-        <header className="flex items-center justify-between px-70 py-4 bg-zinc-900 text-white">
+        <header className="flex items-center justify-between px-4 md:px-8 lg:px-70 py-4 bg-zinc-900 text-white">
             <div className="flex items-center space-x-2">
                 <div className="w-6 h-6 bg-white rounded-sm flex items-center justify-center">
                     <div className="w-3 h-3 bg-zinc-900"></div>
@@ -16,7 +16,7 @@ function Header() {
             </div>
 
             {/* Barra de pesquisa central. */}
-            <div className="flex items-center bg-zinc-800 rounded-full px-4 py-2 flex-grow mx-8 max-w-xl">
+            <div className="hidden md:flex items-center bg-zinc-800 rounded-full px-4 py-2 flex-grow mx-2 md:mx-8 max-w-xl">
                 <Search className="text-gray-400 mr-2" size={20} />
                 <input
                     type="text"

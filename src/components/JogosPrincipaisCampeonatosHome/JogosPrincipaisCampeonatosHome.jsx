@@ -20,8 +20,8 @@ function JogosPrincipaisCampeonatosHome() {
   }, []);
 
   return (
-  <div className="text-white py-6 px-5 rounded-2xl bg-zinc-900 text-sm">
-  <div className="space-y-3 w-full min-w-[500px]">
+  <div className="text-white py-6 px-5 rounded-2xl bg-zinc-900 text-sm border border-zinc-800 shadow-2xl">
+  <div className="space-y-3 w-full">
         {loading ? (
           <div>Carregando...</div>
         ) : (
