@@ -2,13 +2,12 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
-import flagBrasil from "../../assets/flag_brasil.png";
 
 
 function JogosPrincipaisCampeonatosHome() {
   const [campeonatos, setCampeonatos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [favoritos, setFavoritos] = useState({}); // { 'camp-{id}': boolean, 'jogo-{id}': boolean }
+  const [favoritos, setFavoritos] = useState({});
 
   const toggleFavorito = (tipo, id) => {
     const key = `${tipo}-${id}`;

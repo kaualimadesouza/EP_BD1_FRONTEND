@@ -1,9 +1,3 @@
-/**
- * Componente Admin.
- *
- * Essa é a tela que da acesso a manutenção de todas as entidades no banco de dados
- * através de uma API REST. Ele permite realizar operações CRUD (Criar, Ler, Atualizar, Deletar)
- */
 import { useEffect, useState } from "react";
 import { Database, Tag } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -29,8 +23,8 @@ function Admin() {
     const [messageType, setMessageType] = useState("");
     const [insertSuccess, setInsertSuccess] = useState(false);
 
-    const [rows, setRows] = useState([]); // Linhas da tabela
-    const [columns, setColumns] = useState([]); // Colunas da tabela
+    const [rows, setRows] = useState([]);
+    const [columns, setColumns] = useState([]);
     const [tableColumns, setTableColumns] = useState([]);
     const [tableColumnsInsertValue, setTableColumnsInsertValue] = useState([]);
 
@@ -224,7 +218,7 @@ function Admin() {
 
     // Busca os nomes das colunas da tabela selecionada na API e atualiza o estado `tableColumns`.
     function fetchTableColumns() {
-        if (!table) return; // Não faz nada se nenhuma tabela estiver selecionada.
+        if (!table) return;
         axios.get(`http://localhost:8080/${table}/columns`)
             .then((response) => {
                 setTableColumns(response.data);
@@ -278,9 +272,9 @@ function Admin() {
         if (window.confirm("Deseja realmente inserir este registro? Veja o JSON na tela.")) {
             axios.post(`http://localhost:8080/${table}`, rowData)
                 .then((response) => {
-                    setInsertSuccess(true); // Ativa o popup de sucesso.
-                    setTimeout(() => setInsertSuccess(false), 4000); // Esconde o popup após 4 segundos.
-                    setTableColumnsInsertValue([]); // Limpa os campos do formulário.
+                    setInsertSuccess(true);
+                    setTimeout(() => setInsertSuccess(false), 4000);
+                    setTableColumnsInsertValue([]);
                 })
                 .catch((error) => {
                     console.error("Error inserting row:", error);

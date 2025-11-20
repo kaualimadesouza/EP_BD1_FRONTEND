@@ -11,37 +11,6 @@ function JogadoresMaisCarosCampeonato() {
             .then(res => res.json())
             .then(data => setCampeonatos(data))
             .catch(() => setCampeonatos([]));
-
-        // Mock
-        // setCampeonatos([
-        //     {
-        //         nomeCampeonato: "Copa do Mundo FIFA 2022",
-        //         jogadoresMaisCaros: [
-        //             { nome: "Kylian Mbappé", preco: 180000000, fotoJogador: "https://img.sofascore.com/api/v1/player/826643/image" },
-        //             { nome: "Jude Bellingham", preco: 120000000, fotoJogador: null },
-        //             { nome: "Vinícius Júnior", preco: 120000000, fotoJogador: "https://img.sofascore.com/api/v1/player/868812/image" },
-        //             { nome: "Phil Foden", preco: 110000000, fotoJogador: null },
-        //             { nome: "Bukayo Saka", preco: 100000000, fotoJogador: null },
-        //             { nome: "Pedri", preco: 100000000, fotoJogador: null },
-        //             { nome: "Harry Kane", preco: 90000000, fotoJogador: null },
-        //             { nome: "Aurélien Tchouaméni", preco: 90000000, fotoJogador: null },
-        //             { nome: "Gavi", preco: 90000000, fotoJogador: null },
-        //             { nome: "Casemiro", preco: 90000000, fotoJogador: null }
-        //         ]
-        //     },
-        //     {
-        //         nomeCampeonato: "Supermundial de Clubes FIFA 2025",
-        //         jogadoresMaisCaros: []
-        //     },
-        //     {
-        //         nomeCampeonato: "Brasileirão Série A",
-        //         jogadoresMaisCaros: []
-        //     },
-        //     {
-        //         nomeCampeonato: "Teixeira das Pedras League",
-        //         jogadoresMaisCaros: []
-        //     }
-        // ]);
     }, []);
 
     if (campeonatos.length === 0) {

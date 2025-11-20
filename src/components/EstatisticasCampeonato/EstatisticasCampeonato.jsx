@@ -5,7 +5,8 @@ function EstatisticasCampeonato() {
     const [estadios, setEstadios] = useState([]);
 
     useEffect(() => {
-        const idCampeonato = 1; // Usando id fixo por enquanto
+        // Usando id fixo para fins didaticos
+        const idCampeonato = 1; 
         fetch(`http://localhost:8080/campeonato/estatisticas/${idCampeonato}`)
             .then(res => res.json())
             .then(data => {

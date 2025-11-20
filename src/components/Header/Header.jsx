@@ -1,8 +1,5 @@
-/**
- * Componente Header.
- */
 import { Link } from "react-router-dom";
-import { Search, Calendar, User, Settings } from 'lucide-react'; // Importa ícones do Lucide React
+import { Search, Calendar, User, Settings } from 'lucide-react';
 
 function Header() {
     return (

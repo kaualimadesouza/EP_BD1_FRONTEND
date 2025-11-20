@@ -15,7 +15,6 @@ function ArtilheirosCampeonato() {
             })
             .then(data => setCampeonatos(data))
             .catch(() => {
-                // fallback: pode mostrar erro ou mock se quiser
                 setCampeonatos([]);
             });
     }, []);

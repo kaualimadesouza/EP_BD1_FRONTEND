@@ -7,9 +7,6 @@ function UltimosJogos() {
   // Estado para controlar o índice do jogo atualmente exibido.
   const [indiceAtual, setIndiceAtual] = useState(0);
 
-  /**
-   * Busca os últimos jogos e seus respectivos times da API.
-   */
   async function getAtuaisJogos() {
     try {
       // Faz uma requisição para obter a lista das últimas partidas.
@@ -39,24 +36,19 @@ function UltimosJogos() {
     }
   }
 
-  /**
-   * Aqui busca-se os jogos quando o componente for montado.
-   */
+  // Lida com a busca dos jogos quando o componente for montado.
   useEffect(() => {
     getAtuaisJogos();
   }, []);
 
-  /**
-   * Lida com a navegação para o próximo jogo na lista.
-   */
+  // Lida com a navegação para o próximo jogo na lista.
   const handleProximo = () => {
     if (ultimosJogos.length === 0) return; // Não faz nada se não houver jogos.
     setIndiceAtual((prevIndice) => (prevIndice + 1) % ultimosJogos.length);
   };
 
-  /**
-   * Lida com a navegação para o jogo anterior na lista.
-   */
+
+  // Lida com a navegação para o jogo anterior na lista.   
   const handleAnterior = () => {
     if (ultimosJogos.length === 0) return; // Não faz nada se não houver jogos.
     setIndiceAtual((prevIndice) =>
