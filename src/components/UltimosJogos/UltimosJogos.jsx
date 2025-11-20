@@ -84,61 +84,61 @@ function UltimosJogos() {
   
   
   return (
-        <div className="w-full">
+        <div className="w-full animate-fade-in">
           {/* Card que exibe os detalhes do jogo atual. */}
-          <div className="bg-zinc-900 text-white rounded-2xl p-7 text-sm border border-zinc-800 shadow-2xl">
-            <div className="mb-3 text-gray-400 text-sm text-center">
+          <div className="bg-zinc-900 text-white rounded-2xl p-7 text-sm border border-zinc-800 shadow-2xl transition-all duration-300 hover:shadow-3xl hover:border-zinc-700">
+            <div className="mb-3 text-gray-400 text-sm text-center transition-colors duration-200">
                 {jogoAtual.nomeCampeonato}
             </div>
 
             {/* Seção que exibe os detalhes dos times e informações centrais do jogo. */}
             <div className="flex justify-between items-center mb-5">
-              <div className="flex flex-col items-center text-center w-1/3">
-                <img src={jogoAtual.time1.urlEscudoEquipe} alt={jogoAtual.time1.nome} className="w-10 h-10 mb-2 rounded-xl" />
-                <span className="text-xs font-bold">{jogoAtual.time1.nome}</span>
-                <span className="text-lg">{jogoAtual.time1.placar}</span>
-                <span className="text-xs text-gray-400">{jogoAtual.time1.sigla}</span>
+              <div className="flex flex-col items-center text-center w-1/3 transition-all duration-300 hover:opacity-80 cursor-pointer group">
+                <img src={jogoAtual.time1.urlEscudoEquipe} alt={jogoAtual.time1.nome} className="w-10 h-10 mb-2 rounded-xl transition-all duration-300 group-hover:shadow-lg group-hover:shadow-blue-500/25" />
+                <span className="text-xs font-bold transition-colors duration-200 group-hover:text-blue-400">{jogoAtual.time1.nome}</span>
+                <span className="text-lg transition-all duration-200 group-hover:text-blue-300">{jogoAtual.time1.placar}</span>
+                <span className="text-xs text-gray-400 transition-colors duration-200 group-hover:text-gray-300">{jogoAtual.time1.sigla}</span>
               </div>
               {/* Informações centrais do jogo (horário, data, status, estádio). */}
-              <div className="flex flex-col items-center">
-                <span className="text-lg font-bold">{horarioFormatado}</span>
-                <span className="text-xs text-gray-400">{dataFormatada}</span>
-                <span className="text-xs text-gray-400">{jogoAtual.status}</span>
-                <span className="text-xs text-gray-400 mt-2">{jogoAtual.nomeOficialEstadio}</span>
+              <div className="flex flex-col items-center transition-all duration-300 hover:opacity-80">
+                <span className="text-lg font-bold transition-colors duration-200 hover:text-blue-400">{horarioFormatado}</span>
+                <span className="text-xs text-gray-400 transition-colors duration-200 hover:text-gray-300">{dataFormatada}</span>
+                <span className="text-xs text-gray-400 transition-colors duration-200 hover:text-gray-300">{jogoAtual.status}</span>
+                <span className="text-xs text-gray-400 mt-2 transition-colors duration-200 hover:text-gray-300">{jogoAtual.nomeOficialEstadio}</span>
               </div>
-              <div className="flex flex-col items-center text-center w-1/3">
-                <img src={jogoAtual.time2.urlEscudoEquipe} alt={jogoAtual.time2.nome} className="w-10 h-10 mb-2 rounded-xl" />
-                <span className="text-xs font-bold">{jogoAtual.time2.nome}</span>
-                <span className="text-lg">{jogoAtual.time2.placar}</span>
-                <span className="text-xs text-gray-400">{jogoAtual.time2.sigla}</span>
+              <div className="flex flex-col items-center text-center w-1/3 transition-all duration-300 hover:opacity-80 cursor-pointer group">
+                <img src={jogoAtual.time2.urlEscudoEquipe} alt={jogoAtual.time2.nome} className="w-10 h-10 mb-2 rounded-xl transition-all duration-300 group-hover:shadow-lg group-hover:shadow-red-500/25" />
+                <span className="text-xs font-bold transition-colors duration-200 group-hover:text-red-400">{jogoAtual.time2.nome}</span>
+                <span className="text-lg transition-all duration-200 group-hover:text-red-300">{jogoAtual.time2.placar}</span>
+                <span className="text-xs text-gray-400 transition-colors duration-200 group-hover:text-gray-300">{jogoAtual.time2.sigla}</span>
               </div>
             </div>
 
             {/* Seção que exibe o vencedor do campeonato. (Caso houver)*/}
             <div className="mb-5">
-              <h3 className="text-lg font-semibold text-center">Vencedor do Campeonato</h3>
+              <h3 className="text-lg font-semibold text-center transition-colors duration-200 hover:text-blue-400">Vencedor do Campeonato</h3>
               <div className="flex justify-center mt-2">
-                <button className="flex-1 bg-purple-600 border border-purple-500 rounded-full py-2 flex items-center justify-center cursor-default">
-                  <span className="text-lg font-bold">{jogoAtual.campeao}</span>
+                <button className="flex-1 bg-purple-600 border border-purple-500 rounded-full py-2 flex items-center justify-center cursor-default transition-all duration-300 hover:bg-purple-500 hover:shadow-lg hover:shadow-purple-500/25">
+                  <span className="text-lg font-bold transition-all duration-200 hover:text-purple-200">{jogoAtual.campeao}</span>
                 </button>
               </div>
             </div>
 
             {/* Controles de navegação entre os jogos (Anterior, Próximo e indicadores de página). */}
             <div className="flex justify-between items-center text-gray-400 text-sm mt-5">
-              <span className="cursor-pointer" onClick={handleAnterior}>{'<'} Anterior</span>
+              <span className="cursor-pointer transition-all duration-200 hover:text-white" onClick={handleAnterior}>{'<'} Anterior</span>
               <div className="flex space-x-2">
                 {ultimosJogos.map((_, index) => (
                   <span
                     key={index}
-                    className={`w-2 h-2 rounded-full cursor-pointer ${
-                      index === indiceAtual ? 'bg-purple-500' : 'bg-gray-600'
+                    className={`w-2 h-2 rounded-full cursor-pointer transition-all duration-300 hover:opacity-80 ${
+                      index === indiceAtual ? 'bg-purple-500 shadow-lg shadow-purple-500/50' : 'bg-gray-600 hover:bg-gray-500'
                     }`}
                     onClick={() => setIndiceAtual(index)}
                   ></span>
                 ))}
               </div>
-              <span className="cursor-pointer" onClick={handleProximo}>{'>'} Próximo</span>
+              <span className="cursor-pointer transition-all duration-200 hover:text-white" onClick={handleProximo}>{'>'} Próximo</span>
             </div>
           </div>
         </div>
